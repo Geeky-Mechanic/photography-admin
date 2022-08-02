@@ -14,6 +14,14 @@
 
             ],
         },
+        {
+            name: "Messages",
+            ref: "messages",
+            subItems: [
+                {subName: "Anciens Messages", subRef: "messages/anciens"},
+                {subName: "Nouveaux Messages", subRef: "messages/nouveaux"}
+            ]
+        }
     ];
 </script>
 

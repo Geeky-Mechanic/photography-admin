@@ -5,6 +5,7 @@
     export let items;
     let activeItem;
     let display = "none";
+    let clickedId;
     /*     onMount(()=> {
         if($page.url.pathname === "/dashboard"){
             activeItem = "Dashboard";
@@ -17,9 +18,21 @@
         };
     }); */
 
+    function validateName(name){
+        const found = items.find(item => {
+            return item.name === name
+        });
+        if(found){
+            return true;
+        } else{
+            return false;
+        }
+    };
+
     const handleClick = (e) => {
         const id = e.target.id;
-        if (id === "item") {
+        if (validateName(id)) {
+            clickedId = id;
             if (display === "none") {
                 display = "flex";
             } else if (display === "flex") {
@@ -38,8 +51,8 @@
     </div>
     {#each items as item}
         {#if item.subItems}
-            <div class="nav-item" id="item" on:click={(e) => handleClick(e)}>
-                <p id="item" class:active={item.name === activeItem}>
+            <div class="nav-item" id={item.name} on:click={(e) => handleClick(e)}>
+                <p id={item.name} class:active={item.name === activeItem}>
                     {item.name}
                 </p>
             </div>
@@ -49,7 +62,7 @@
                     id={`/${subItem.subRef}`}
                     on:click={handleClick}
                     on:mouseenter={() => prefetch(`/${item.ref}`)}
-                    style={`display: ${display};`}
+                    style={`display: ${clickedId === item.name ? display : "none"};`}
                 >
                     <p
                         class="subitem-text"
