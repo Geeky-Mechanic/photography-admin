@@ -40,13 +40,14 @@
             method: "POST",
             body: newFormData,
         });
-        console.log(await res.json());
+        if(res.ok){
+            uploaded = true;
+            imageUrl = await res.json();
+            handleSave();
+        }
     };
 
     const handleSave = async () => {
-        if (!uploaded && image !== data.image) {
-            return false;
-        } else {
             const res = await fetch(`/api/content/${location}/${id}`, {
                 method: "PUT",
                 body: JSON.stringify({ title, content, image: imageUrl }),
@@ -56,12 +57,11 @@
                 const newContent = await res.json();
                 data = newContent;
             }
-        }
+            
     };
 
     const handleImageInput = (e) => {
         image = e.target.files[0];
-        console.log(image);
         const fileExtension = e.target.files[0].name.split(".")[1];
         const fileName = id + "." + fileExtension;
         imageName = fileName;
