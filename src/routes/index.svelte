@@ -26,7 +26,7 @@
             status.pending = false;
             status.posted = true;
             status.failed = false;
-            goto("/dashboard");
+            goto("/contenu");
         } else {
             status.pending = false;
             status.posted = false;

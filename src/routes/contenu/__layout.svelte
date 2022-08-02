@@ -1,5 +1,5 @@
 <script>
-    import "../styles/global.css";
+    import "../../styles/global.css";
     import Sidebar from "$lib/Sidebar.svelte";
     const items = [
         {

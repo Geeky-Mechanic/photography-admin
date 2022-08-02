@@ -3,7 +3,7 @@ import { connect } from '../utils/db.js'
 
 
 /* Verify usefulness of this endpoint */
-
+/* maybe give user metrics and info instead like bookings etc and traffic */
 
 export async function GET(event) {
     // add token validation
