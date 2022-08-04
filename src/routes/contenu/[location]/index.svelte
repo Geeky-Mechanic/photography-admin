@@ -23,9 +23,7 @@
     import { goto } from "$app/navigation";
     export let location;
     export let data;
-    let deletePrompt;
-
-    const handleClick = (id, method) => {
+    const handleClick = (id) => {
         goto(`/contenu/${location}/${id}`);
     };
 
@@ -59,11 +57,15 @@
 </script>
 
 <main>
-    <h1>Content for location : {location}</h1>
-    <button on:click={goto(`/contenu/${location}/nouveau`)}
-        >ADD CONTENT</button
-    >
-    {#if location !== "a-propos"}
+    {#if location !== "a-propos" && location !== "acceuil"}
+        <div class="top-wrapper">
+            <h1>Content for location : {location}</h1>
+            <button
+                class="new-content"
+                on:click={goto(`/contenu/${location}/nouveau`)}
+                >ADD CONTENT</button
+            >
+        </div>
         {#each data as content}
             {#if content.title !== ""}
                 <div class="container">
@@ -73,6 +75,7 @@
                         >EDIT</button
                     >
                 </div>
+                <hr />
             {/if}
         {/each}
         {#each data as content}
@@ -90,9 +93,13 @@
                         >
                     </div>
                 </div>
+                <hr />
             {/if}
         {/each}
     {:else}
+        <div class="top-wrapper">
+            <h1>Content for location : {location}</h1>
+        </div>
         {#each data as content}
             <div class="container">
                 <h2>{content.title}</h2>
@@ -123,9 +130,36 @@
     button {
         margin: 1rem 0;
     }
+
+    h1 {
+        align-self: center;
+    }
+
+    hr {
+        width: 90%;
+    }
+
     .container {
         display: flex;
         flex-direction: column;
         align-items: center;
+        margin-top: 1rem;
+    }
+
+    .top-wrapper {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .new-content {
+        align-self: flex-end;
+        margin-right: 2rem;
+        padding: 0.8rem;
+        border: none;
+        background-color: orangered;
+        border-radius: 5px;
+        color: white;
+        font-weight: 600;
     }
 </style>

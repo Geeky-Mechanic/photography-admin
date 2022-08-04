@@ -1,5 +1,5 @@
 <script>
-    import "../../styles/global.css";
+    import "../styles/global.css";
     import Sidebar from "$lib/Sidebar.svelte";
     const items = [
         {
@@ -18,8 +18,8 @@
             name: "Messages",
             ref: "messages",
             subItems: [
+                {subName: "Nouveaux Messages", subRef: "messages/nouveaux"},
                 {subName: "Anciens Messages", subRef: "messages/anciens"},
-                {subName: "Nouveaux Messages", subRef: "messages/nouveaux"}
             ]
         }
     ];

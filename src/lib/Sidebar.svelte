@@ -2,35 +2,30 @@
     import { goto, prefetch } from "$app/navigation";
     import { onMount } from "svelte";
     import { page } from "$app/stores";
+    import { browser } from '$app/env';
     export let items;
     let activeItem;
     let display = "none";
     let clickedId;
-    /*     onMount(()=> {
-        if($page.url.pathname === "/dashboard"){
-            activeItem = "Dashboard";
-        } else if ($page.url.pathname === "/dashboard/bookings") {
-            activeItem = "Bookings";
-        } else if ($page.url.pathname === "/dashboard/contact"){
-            activeItem = "Complaints";
-        } else if ($page.url.pathname === "/dashboard/pastbookings"){
-            activeItem = "PastBookings";
-        };
-    }); */
+    let leftDistance;
+    let topDistance = [];
+    let navItems;
 
-    function validateName(name){
-        const found = items.find(item => {
-            return item.name === name
+    function validateName(name) {
+        const found = items.find((item) => {
+            return item.name === name;
         });
-        if(found){
+        if (found) {
             return true;
-        } else{
+        } else {
             return false;
         }
-    };
+    }
 
     const handleClick = (e) => {
         const id = e.target.id;
+        const bar = document.getElementsByClassName("navbar")[0];
+        leftDistance = bar.offsetWidth;
         if (validateName(id)) {
             clickedId = id;
             if (display === "none") {
@@ -41,38 +36,65 @@
         } else {
             display = "none";
             goto(id);
-        };
+        }
     };
+
+    /* ---->  GEt Y position for item to align the subitems with it  <---------------------------------- */
+    onMount(()=> {
+        if(browser){
+        const bar = document.getElementsByClassName("navbar")[0];
+        leftDistance = bar.offsetWidth;
+
+        navItems = Array.from(document.getElementsByClassName("nav-item"));
+        navItems.forEach(item => {
+            const topDist = item.getBoundingClientRect().top;
+            topDistance.push(topDist);
+            topDistance = topDistance;
+        });
+        };
+    });
+
+    
+
+    
 </script>
 
 <div class="navbar">
     <div class="nav-left">
         <span class="nav-logo">Logo</span>
     </div>
-    {#each items as item}
+    {#each items as item, index}
         {#if item.subItems}
-            <div class="nav-item" id={item.name} on:click={(e) => handleClick(e)}>
+            <div
+                class="nav-item"
+                id={item.name}
+                on:click={(e) => handleClick(e)}
+            >
                 <p id={item.name} class:active={item.name === activeItem}>
                     {item.name}
                 </p>
             </div>
-            {#each item.subItems as subItem}
-                <div
-                    class="nav-subitem"
-                    id={`/${subItem.subRef}`}
-                    on:click={handleClick}
-                    on:mouseenter={() => prefetch(`/${item.ref}`)}
-                    style={`display: ${clickedId === item.name ? display : "none"};`}
-                >
-                    <p
-                        class="subitem-text"
+            <div class="subitem-wrapper" style={`left: ${leftDistance}px; top: ${topDistance[index]}px;`}>
+                {#each item.subItems as subItem}
+                    <div
+                        class="nav-subitem"
                         id={`/${subItem.subRef}`}
                         on:click={handleClick}
+                        on:mouseenter={() => prefetch(`/${subItem.subRef}`)}
+                        style={`display: ${
+                            clickedId === item.name ? display : "none"
+                        };`}
                     >
-                        {subItem.subName}
-                    </p>
-                </div>
-            {/each}
+                        <p
+                            class="subitem-text"
+                            id={`/${subItem.subRef}`}
+                            on:click={handleClick}
+                        >
+                            {subItem.subName}
+                        </p>
+                    </div>
+                {/each}
+            </div>
         {:else}
             <div
                 class="nav-item"
@@ -96,6 +118,7 @@
         flex-direction: column;
         background-color: crimson;
         margin: 0 0 0 0;
+        position: relative;
         /* --->  choose right color and style better  <--- */
     }
 
@@ -119,15 +142,17 @@
         padding: 25px 10px;
     }
 
+    .subitem-wrapper{
+        position: absolute;
+        top: 0;
+    }
+
     .nav-subitem {
         background-color: lightskyblue;
         cursor: pointer;
         text-align: center;
         align-items: center;
         padding: 25px 10px;
-        position: relative;
-        left: 100%;
-        top: -11%;
         justify-content: center;
     }
 </style>

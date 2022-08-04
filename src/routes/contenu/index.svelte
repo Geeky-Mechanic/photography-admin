@@ -19,6 +19,11 @@
 </script>
 
 <script>
+
+
+    /* ---->  Remove this page properly  <---------------------------------- */
+
+
     export let data;
 
     const handleClick = (location) => {
