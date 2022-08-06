@@ -10,10 +10,19 @@
 
         const data = await res.json();
 
+        const numRes = await fetch(`/api/messages/${age}/number`,{
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        const numMessages = await numRes.json();
+
         return {
             props: {
                 age,
                 data,
+                numMessages,
             },
         };
     }
@@ -21,9 +30,28 @@
 
 <script>
     import { goto } from "$app/navigation";
+    import PageNbr from "$lib/PageNbr.svelte";
     export let age;
     export let data;
-    console.log(data);
+    export let numMessages;
+    let currPage = 1;
+
+    const handlePageNavigate = async (e) => {
+    const skipNum = (parseInt(e.target.value) - 1) * 10;
+    const btnId = e.target.name;
+    if(btnId === "UpcomingId"){
+     const res = await fetch(`/api/messages/${age}`, {
+      headers: {
+        "Content-Type": "application/json",
+        skip: skipNum,
+      },
+    });
+    const newData = await res.json();
+    numMessages = newData;
+    currPage = parseInt(e.target.value);
+  };
+  };
+
     const handleClick = (id) => {
         goto(`/messages/${age}/${id}`);
     };
@@ -44,6 +72,7 @@
             <button on:click={() => handleClick(msg._id)}>VOIR</button>
         </div>
     {/each}
+    <PageNbr id="UpcomingId" {currPage} number={numMessages} on:click={handlePageNavigate} />
 </main>
 
 <style>
@@ -52,7 +81,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin-top: 2rem;
+        margin: 2rem 0;
     }
 
     hr {
@@ -66,6 +95,6 @@
         border: 2px solid #000;
         border-radius: 5px;
         padding: 5%;
-        margin-bottom: 2rem;
+        margin: 0 2rem 2rem 2rem;
     }
 </style>

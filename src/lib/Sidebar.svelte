@@ -61,7 +61,8 @@
 
 <div class="navbar">
     <div class="nav-left">
-        <span class="nav-logo">Logo</span>
+        <img src="https://firebasestorage.googleapis.com/v0/b/photography-app-9dbd7.appspot.com/o/logo-cin-noir.png?alt=media&token=76606cc4-8548-4550-b49b-89411656d070" 
+        alt="LOGO" class="nav-logo" />
     </div>
     {#each items as item, index}
         {#if item.subItems}
@@ -116,15 +117,16 @@
         height: 100vh;
         display: flex;
         flex-direction: column;
-        background-color: crimson;
         margin: 0 0 0 0;
-        position: relative;
+        position: sticky;
+        top:0;
+        background-color: lightgrey;
+        border-right: 2px solid lightslategrey;
         /* --->  choose right color and style better  <--- */
     }
 
     .nav-logo {
-        font-weight: 800;
-        font-size: 3rem;
+        max-width: 10rem;
     }
 
     .nav-left {
@@ -136,7 +138,7 @@
     }
 
     .nav-item {
-        background-color: lightskyblue;
+        background-color: rgba(255, 69, 0, 0.7);
         cursor: pointer;
         text-align: center;
         padding: 25px 10px;
@@ -154,5 +156,17 @@
         align-items: center;
         padding: 25px 10px;
         justify-content: center;
+    }
+
+    @media screen and (max-width: 550px) {
+        .nav-logo{
+            max-width: 7rem;
+        }
+    }
+
+    @media screen and (max-width: 450px) {
+        .nav-logo{
+            max-width: 6rem;
+        }
     }
 </style>

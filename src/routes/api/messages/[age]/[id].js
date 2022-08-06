@@ -22,3 +22,27 @@ export async function GET(event){
         };
     }
 };
+
+// verifiy if this works as intended
+export async function PUT(event){
+    const id = event.params.id;
+    const req = await event.request.json();
+    try{
+        await connect();
+        
+        const message = await Contact.findByIdAndUpdate(id, req);
+        return {
+            body: message,
+            status: 200,
+            headers: {
+                "Content-Type": "application/json",
+            }
+        };
+
+    }catch(err){
+        return {
+            body: err,
+            status: 500,
+        };
+    }
+};
