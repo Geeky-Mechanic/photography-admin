@@ -11,6 +11,7 @@
                 { subName: "Événements", subRef: "contenu/evenements" },
                 { subName: "À-propos", subRef: "contenu/a-propos"},
                 { subName: "Acceuil", subRef: "contenu/acceuil"},
+                {subName: "Contactez-Moi", subRef:"contenu/contact"}
 
             ],
         },

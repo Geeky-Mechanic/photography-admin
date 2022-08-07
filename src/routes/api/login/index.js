@@ -8,8 +8,8 @@ import {
 } from '../utils/encryption';
 
 //use in dev mode
-import dotenv from 'dotenv';
-dotenv.config();
+/* import dotenv from 'dotenv';
+dotenv.config(); */
 
 export async function POST(event) {
     const creds = await event.request.json();
