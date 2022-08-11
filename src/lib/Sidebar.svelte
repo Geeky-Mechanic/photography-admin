@@ -20,12 +20,18 @@
         } else {
             return false;
         }
-    }
+    };
 
     const handleClick = (e) => {
         const id = e.target.id;
         const bar = document.getElementsByClassName("navbar")[0];
         leftDistance = bar.offsetWidth;
+        navItems = Array.from(document.getElementsByClassName("nav-item"));
+        navItems.forEach(item => {
+            const topDist = item.getBoundingClientRect().top;
+            topDistance.push(topDist);
+            topDistance = topDistance;
+        });
         if (validateName(id)) {
             clickedId = id;
             if (display === "none") {
@@ -61,7 +67,7 @@
 
 <div class="navbar">
     <div class="nav-left">
-        <img src="https://firebasestorage.googleapis.com/v0/b/photography-app-9dbd7.appspot.com/o/logo-cin-noir.png?alt=media&token=76606cc4-8548-4550-b49b-89411656d070" 
+        <img src="https://firebasestorage.googleapis.com/v0/b/photography-app-9dbd7.appspot.com/o/logo-cin.png?alt=media&token=e1c77681-e583-4028-a396-bcd65cbcc388" 
         alt="LOGO" class="nav-logo" />
     </div>
     {#each items as item, index}
@@ -120,7 +126,6 @@
         margin: 0 0 0 0;
         position: sticky;
         top:0;
-        background-color: lightgrey;
         border-right: 2px solid lightslategrey;
         /* --->  choose right color and style better  <--- */
     }
@@ -138,7 +143,7 @@
     }
 
     .nav-item {
-        background-color: rgba(255, 69, 0, 0.7);
+        background-color: #f0930b;
         cursor: pointer;
         text-align: center;
         padding: 25px 10px;
@@ -150,7 +155,8 @@
     }
 
     .nav-subitem {
-        background-color: lightskyblue;
+        background-color: #f0930b;
+        opacity: 0.7;
         cursor: pointer;
         text-align: center;
         align-items: center;

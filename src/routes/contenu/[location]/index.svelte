@@ -57,7 +57,7 @@
 </script>
 
 <main>
-    {#if location !== "a-propos" && location !== "acceuil"}
+    {#if location !== "a-propos" && location !== "acceuil" && location !== "contact"}
         <div class="top-wrapper">
             <h1>Content for location : {location}</h1>
             <button
@@ -157,7 +157,7 @@
         margin-right: 2rem;
         padding: 0.8rem;
         border: none;
-        background-color: orangered;
+        background-color: #f0930b;
         border-radius: 5px;
         color: white;
         font-weight: 600;

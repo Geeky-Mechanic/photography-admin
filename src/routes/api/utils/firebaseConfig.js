@@ -1,8 +1,8 @@
 import { initializeApp } from "firebase/app";
 
 //remove for deployment
-/* import dotenv from 'dotenv';
-dotenv.config(); */
+import dotenv from 'dotenv';
+dotenv.config();
 
 // TODO: Replace the following with your app's Firebase project configuration
 // See: https://firebase.google.com/docs/web/learn-more#config-object

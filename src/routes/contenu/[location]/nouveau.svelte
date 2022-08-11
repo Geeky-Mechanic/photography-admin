@@ -17,21 +17,26 @@
     let title;
     let content;
     let image;
+    let imageName;
     let uploaded;
     let imageUrl;
     let saved;
     let id;
-    console.log(location);
+
     const handleUpload = async (e) => {
         await preSave();
-        const res = await fetch("/api/image", {
+        const newFormData = new FormData();
+        newFormData.append("image", image);
+        newFormData.append("imageName", imageName);
+        const res = await fetch('/api/image',{
             method: "POST",
-            body: JSON.stringify({ image, imageName }),
-            headers: {
-                "Content-Type": "application/json",
-            },
+            body: newFormData,
         });
-        console.log(res);
+        if(res.ok){
+            uploaded = true;
+            imageUrl = await res.json();
+            handleSave();
+        }
     };
 
     const handleSave = async () => {
@@ -40,7 +45,7 @@
         } else {
             const res = await fetch(`/api/content/${location}/${id}`, {
                 method: "PUT",
-                body: JSON.stringify({ title, content, image: imageUrl }),
+                body: JSON.stringify({ title, content, image: imageUrl ? imageUrl : image }),
             });
             if (res.ok) {
                 saved = true;

@@ -31,6 +31,7 @@
     let imageUrl;
     let imageName;
     let saved;
+    let selected = false;
 
     const handleUpload = async (e) => {
         const newFormData = new FormData();
@@ -50,7 +51,7 @@
     const handleSave = async () => {
             const res = await fetch(`/api/content/${location}/${id}`, {
                 method: "PUT",
-                body: JSON.stringify({ title, content, image: imageUrl }),
+                body: JSON.stringify({ title, content, image: imageUrl ? imageUrl : image }),
             });
             if (res.ok) {
                 saved = true;
@@ -65,7 +66,10 @@
         const fileExtension = e.target.files[0].name.split(".")[1];
         const fileName = id + "." + fileExtension;
         imageName = fileName;
+        selected = true;
     };
+
+    console.log(image);
 </script>
 
 <main>
@@ -103,7 +107,7 @@
             />
         </div>
     {/if}
-    <button on:click={handleUpload}>SAVE</button>
+    <button on:click={() => selected  ? handleUpload() : handleSave() }>SAVE</button>
     {#if uploaded}
         <p class="saved">Téléchargé avec succès, attendez la sauvegarde...</p>
     {/if}
