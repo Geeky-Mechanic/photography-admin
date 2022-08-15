@@ -1,9 +1,11 @@
 import Availability from "../models/Availability.js";
 import connect from "../utils/db.js"
 
+
 export async function GET(event) {
     try {
         await connect();
+
         const date = event.params.date;
         const dateParts = date.split("-");
         const year = dateParts[0];
@@ -93,11 +95,55 @@ export async function PUT(event) {
                     $each: req.hours
                 }
             }
-        },{ new: true });
+        }, {
+            new: true
+        });
 
         return {
             body: updatedAvailability,
             status: 200,
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }
+    } catch (err) {
+        return {
+            status: 500,
+            body: err,
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }
+    }
+};
+
+export async function DELETE(event) {
+    try {
+        await connect();
+
+        const date = event.params.date;
+        const dateParts = date.split("-");
+        const year = dateParts[0];
+        const month = parseInt(dateParts[1]) - 1;
+        const day = dateParts[2];
+
+        const req = await event.request.json();
+
+        const updatedAvailability = await Availability.findOneAndUpdate({
+            day: new Date(year, month.toString(), day).setUTCHours(4),
+        }, {
+            $pull: {
+                hours: {
+                    $in: req
+                }
+            },
+        },{new: true});
+
+        console.log(updatedAvailability);
+
+        return {
+            status: 200,
+            body: updatedAvailability,
             headers: {
                 "Content-Type": "application/json",
             },
