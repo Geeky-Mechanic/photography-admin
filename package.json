@@ -9,9 +9,15 @@
 		"prepare": "svelte-kit sync"
 	},
 	"devDependencies": {
+		"@fullcalendar/common": "^5.11.2",
+		"@fullcalendar/core": "^5.11.2",
+		"@fullcalendar/daygrid": "^5.11.2",
+		"@fullcalendar/interaction": "^5.11.2",
+		"@fullcalendar/timegrid": "^5.11.2",
 		"@sveltejs/adapter-auto": "next",
 		"@sveltejs/kit": "next",
 		"svelte": "^3.44.0",
+		"svelte-fullcalendar": "latest",
 		"vite": "^3.0.0"
 	},
 	"type": "module",

@@ -11,7 +11,8 @@
                 { subName: "Événements", subRef: "contenu/evenements" },
                 { subName: "À-propos", subRef: "contenu/a-propos"},
                 { subName: "Acceuil", subRef: "contenu/acceuil"},
-                {subName: "Contactez-Moi", subRef:"contenu/contact"}
+                {subName: "Contactez-Moi", subRef:"contenu/contact"},
+                { subName:"Réservations", subRef:"contenu/reservations"},
 
             ],
         },
@@ -22,7 +23,11 @@
                 {subName: "Nouveaux Messages", subRef: "messages/nouveaux"},
                 {subName: "Anciens Messages", subRef: "messages/anciens"},
             ]
-        }
+        },
+        {
+            name: "Réservations",
+            ref: "reservations",
+        },
     ];
 </script>
 

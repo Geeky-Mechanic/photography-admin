@@ -16,12 +16,13 @@
     export let location;
     let title;
     let content;
-    let image;
+    let image = "";
     let imageName;
     let uploaded;
     let imageUrl;
     let saved;
     let id;
+    let selected = false;
 
     const handleUpload = async (e) => {
         await preSave();
@@ -40,9 +41,7 @@
     };
 
     const handleSave = async () => {
-        if (!uploaded) {
-            return false;
-        } else {
+        if(selected){
             const res = await fetch(`/api/content/${location}/${id}`, {
                 method: "PUT",
                 body: JSON.stringify({ title, content, image: imageUrl ? imageUrl : image }),
@@ -50,7 +49,13 @@
             if (res.ok) {
                 saved = true;
             }
+        } else{
+            const res = await fetch(`/api/content/${location}`, {
+            method: "POST",
+            body: JSON.stringify({ location, title, content }),
+        });
         }
+
     };
 
     const preSave = async () => {
@@ -69,11 +74,12 @@
 
     const handleImageInput = (e) => {
         image = e.target.files[0];
+        selected = true;
     };
 </script>
 
 <main>
-    {#if location === "a-propos" || location === "acceuil"}
+    {#if location === "a-propos" || location === "acceuil" || location === "reservations"}
         <div class="row">
             <input type="text" placeholder="Nouveau titre" bind:value={title} />
         </div>
@@ -94,7 +100,7 @@
                 on:change={(e) => handleImageInput(e)}
             />
         </div>
-        <button on:click={handleUpload}>SAVE</button>
+        <button on:click={() => selected ? handleUpload() : handleSave()}>SAVE</button>
     {:else}
         <div class="row">
             <input

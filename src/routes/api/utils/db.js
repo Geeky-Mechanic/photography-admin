@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
 
 //use in dev mode
-import dotenv from 'dotenv';
-dotenv.config();
+/* import dotenv from 'dotenv';
+dotenv.config(); */
 
-export async function connect () {
+export default async function connect () {
     if(mongoose.connection.readyState !== 1){
         await mongoose.connect(process.env.MONGO_URL);
         console.log("reconnecting");

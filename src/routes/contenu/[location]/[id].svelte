@@ -69,7 +69,6 @@
         selected = true;
     };
 
-    console.log(image);
 </script>
 
 <main>

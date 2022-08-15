@@ -92,7 +92,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        border: 2px solid #000;
+        border: 2px solid #fff;
         border-radius: 5px;
         padding: 5%;
         margin: 0 2rem 2rem 2rem;

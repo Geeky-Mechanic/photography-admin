@@ -1,8 +1,16 @@
-import { sveltekit } from '@sveltejs/kit/vite';
+import {
+	sveltekit
+} from '@sveltejs/kit/vite';
 
 /** @type {import('vite').UserConfig} */
 const config = {
-	plugins: [sveltekit()]
+	plugins: [sveltekit()],
+	resolve: {
+		dedupe: ['@fullcalendar/common'],
+	},
+	optimizeDeps: {
+		include: ['@fullcalendar/common'],
+	}
 };
 
 export default config;

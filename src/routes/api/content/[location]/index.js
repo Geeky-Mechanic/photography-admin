@@ -1,5 +1,5 @@
 import Content from '../../models/Content.js';
-import { connect } from '../../utils/db.js';
+import connect from '../../utils/db.js';
 
 export async function GET(event) {
     //verify token

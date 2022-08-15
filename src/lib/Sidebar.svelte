@@ -156,12 +156,12 @@
 
     .nav-subitem {
         background-color: #f0930b;
-        opacity: 0.7;
         cursor: pointer;
         text-align: center;
         align-items: center;
         padding: 25px 10px;
         justify-content: center;
+        z-index: 10;
     }
 
     @media screen and (max-width: 550px) {

@@ -1,4 +1,4 @@
-import { connect } from "../../utils/db.js";
+import connect from "../../utils/db.js";
 import Contact from "../../models/Contact.js";
 
 export async function GET(event){

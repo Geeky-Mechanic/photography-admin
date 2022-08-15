@@ -1,6 +1,4 @@
-import {
-    connect
-} from "../utils/db.js";
+import connect from "../utils/db.js";
 import User from "../models/User.js";
 import jwt from 'jsonwebtoken';
 import {
